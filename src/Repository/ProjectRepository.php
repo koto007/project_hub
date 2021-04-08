@@ -37,11 +37,6 @@ class ProjectRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-    //SELECT p.*, COUNT(t.project_id) FROM project as p left join task as t on p.id = t.project_id group by t.project_id 
-    public function getProjectsWithTasksNb(EntityManagerInterface $entityManager)
-    {
-
-    }
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

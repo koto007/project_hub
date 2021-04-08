@@ -14,7 +14,7 @@
         <a href="{{ path("project_new")}}" class="btn btn-outline-info mb-5 mt-5">Ajouter un projet</a>
 
         {% if (projects == null) %}
-            <div class="not-yet text-center">Aucun projects enregistré</div>
+            <div class="not-yet text-center">Aucun project enregistré</div>
         {% else %}
 
             <table class="table">
@@ -43,9 +43,9 @@
                         <td>{{ project.startedAt|date('d/m/Y') }}</td>
                         <td>
                         {% if (project.status != 'Terminé' ) %}
-                            <a class="btn btn-outline-info" href="{{ path("project_detail", {"id": project.id })}}">Gérer</a></td>
+                            <a class="btn btn-outline-info" href="{{ path("task_list", {"id": project.id })}}">Gérer</a></td>
                         {% else %}
-                            <a class="btn btn-outline-secondary" href="{{ path("project_detail", {"id": project.id}) }}">Détail</a>
+                            <a class="btn btn-outline-secondary" href="{{ path("task_list", {"id": project.id}) }}">Détail</a>
                         {% endif %}
                     </tr>
                     {% endfor %}

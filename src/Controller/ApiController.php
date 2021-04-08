@@ -17,15 +17,22 @@ class ApiController extends AbstractController
     {
         $projects = $projectRepository->getAllProjects();
 
-        return $this->json($projects, 200, [], [
-            AbstractNormalizer::ATTRIBUTES => [
-                'id',
-                'name',
-                'status',
-                'startedAt',
-                'endedAt'
-            ]
-        ]);
+        if ($projects !== null) {
+            return $this->json($projects, 200, [], [
+                AbstractNormalizer::ATTRIBUTES => [
+                    'id',
+                    'name',
+                    'status',
+                    'startedAt',
+                    'endedAt'
+                ]
+            ], 200);
+        }
+
+        return $this->json([
+            "status_code" => 404,
+            "message" => "Not found",
+        ], 404);
     }
 
     /**
@@ -35,23 +42,18 @@ class ApiController extends AbstractController
     {
         $tasks = $taskRepository->getTasksById($id);
 
-        return $this->json($tasks, 200, [], [
-            AbstractNormalizer::ATTRIBUTES => [
-                'id',
-                'title',
-                'description',
-            ]
-        ]);
-    }
-
-    /**
-     * @Route("/api/{id}/test", name="api_test")
-     */
-    public function test($id, TaskRepository $taskRepository)
-    {
-        $tasks = $taskRepository->getTasksByProjectId($id);
+        if ($tasks != null) {
+            return $this->json($tasks, 200, [], [
+                AbstractNormalizer::ATTRIBUTES => [
+                    'id',
+                    'title',
+                    'description'
+                ]
+            ], 200);
+        }
         return $this->json([
-            'data' => $tasks
-        ]);
+            "status_code" => 404,
+            "message" => "Not found. Please make sure the id is correct",
+        ], 404);
     }
 }
