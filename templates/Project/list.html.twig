@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <h2 class="text-center"><i class="far fa-calendar-check"></i> Projets</h2>
+
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <a href="{{ path("project_new")}}" class="btn btn-outline-info mb-5 mt-5">Ajouter un projet</a>
+
+        {% if (projects == null) %}
+            <div class="not-yet text-center">Aucun projects enregistré</div>
+        {% else %}
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du projet</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Tâches</th>
+                        <th scope="col">Ajouté le</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                        {% if (project.status == 'Nouveau') %}
+                        <tr>
+                        {% elseif (project.status == 'En cours' ) %}
+                        <tr class="in-progress">
+                        {% elseif (project.status == 'Terminé' ) %}
+                        <tr class="complete">
+                        {% endif %}
+
+                        <td scope="row">{{ project.name }}</td>
+                        <td>{{ project.status }}</td>
+                        <td>{{ project.tasks|length }}</td>
+                        <td>{{ project.startedAt|date('d/m/Y') }}</td>
+                        <td>
+                        {% if (project.status != 'Terminé' ) %}
+                            <a class="btn btn-outline-info" href="{{ path("project_detail", {"id": project.id })}}">Gérer</a></td>
+                        {% else %}
+                            <a class="btn btn-outline-secondary" href="{{ path("project_detail", {"id": project.id}) }}">Détail</a>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}

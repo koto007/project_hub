@@ -1,0 +1,47 @@
+body {
+    color: rgb(82, 81, 81);
+}
+.container {
+    padding-top: 20px;
+}
+
+
+.complete {
+    background-color: gainsboro;
+    font-style: italic;
+}
+.in-progress {
+    background-color: aliceblue;
+}
+.flash-notice {
+    background-color: lightpink;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+}
+.half {
+    width: 50%;
+}
+.form {
+    width: 50%;
+    margin-left: auto;
+}
+.table {
+    padding-top: 40px;;
+}
+/* form {
+    text-align: center;
+} */
+button {
+    margin-top: 20px;
+}
+.non-espace {
+    margin-top: 0;
+}
+.not-yet {
+    font-style: italic;
+    font-size: 1.2em;
+}
+tr:hover{
+    background-color: lightsteelblue;
+}

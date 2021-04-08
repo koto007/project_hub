@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="d-flex space-between">
+
+            <div class="half">
+                <h2>Projet: {{ project.name }}</h2>
+                <p>Créé le: {{ project.startedAt|date('d/m/Y') }}</p>
+                {% if (project.endedAt != '') %}
+                    <p>Terminé le: {{ project.endedAt|date('d/m/Y') }}</p>
+                {% endif %}
+            </div>
+
+            {% if (project.status != 'Terminé') %}
+                <div class="half">
+                    <form class="form" action="" method="post">
+                        <select name="status" id="">
+                            {% for s in status %}      
+                                {% if (project.status in s ) %}
+                                    <option name="status" value="{{s}}" selected>{{s}}</option>
+                                {% else %}
+                                    <option name="status" value="{{s}}">{{s}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <button type="submit" href="" class="btn btn-outline-info non-espace">Changer</button>
+                    </form>
+                </div>
+            {% endif %}
+
+        </div>
+
+        {% if (project.status != 'Terminé') %}
+            <a href="{{ path("task_new", {"id": project.id })}}" class="btn btn-outline-info mt-5 mb-3">Ajouter une tâche</a>
+        {% endif %}
+
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped table-hover mt-5">
+            <thead>
+            <tr>
+                <th scope="col">Nom du tâche</th>
+                <th scope="col">Description</th>
+                <th scope="col">Ajouté le</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td scope="row">{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.startedAt|date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
